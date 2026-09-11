@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEO &amp; Performance — Kodex Corporation</title>
+    <link
+      rel="shortcut icon"
+      href="../pictures/c602c0cd-d0bb-4e43-98e6-54ee6fbb82fe.jpeg"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #10233d;
+        --paper: #edefea;
+        --paper-2: #ffffff;
+        --accent-dark: #b87a1f;
+        --text: #14202e;
+        --text-muted: #4c5a6b;
+        --line: rgba(16, 35, 61, 0.16);
+        --radius: 4px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: var(--paper);
+        color: var(--text);
+        line-height: 1.5;
+        padding-block: 3rem;
+      }
+      .container {
+        max-width: 1000px;
+        margin-inline: auto;
+        padding-inline: 1.25rem;
+      }
+      .back-link {
+        display: inline-block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent-dark);
+        text-decoration: none;
+        margin-bottom: 1.5rem;
+      }
+      h1 {
+        font-family: "Space Grotesk", sans-serif;
+        color: var(--ink);
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        margin: 0 0 0.5rem;
+      }
+      p.subtitle {
+        color: var(--text-muted);
+        max-width: 60ch;
+        margin-bottom: 2.5rem;
+      }
+      .plans-grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .plan-card {
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .plan-card h2 {
+        font-family: "Space Grotesk", sans-serif;
+        color: var(--ink);
+        font-size: 1.25rem;
+        margin: 0 0 0.5rem;
+      }
+      .price {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent-dark);
+        margin-bottom: 1rem;
+      }
+      .features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2rem;
+      }
+      .features li {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        padding-block: 0.4rem;
+        border-bottom: 1px solid rgba(16, 35, 61, 0.08);
+      }
+      .btn-buy {
+        display: block;
+        text-align: center;
+        background: var(--ink);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius);
+        transition: background 0.2s ease;
+      }
+      .btn-buy:hover {
+        background: var(--accent-dark);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html#servicos" class="back-link"
+        >&larr; Voltar ao site principal</a
+      >
+      <h1>Otimização SEO &amp; Performance</h1>
+      <p class="subtitle">
+        Acelere o tempo de carregamento do seu site e alcance as primeiras
+        posições nos buscadores com otimização técnica avançada.
+      </p>
+
+      <div class="plans-grid">
+        <div class="plan-card">
+          <div>
+            <h2>Auditoria Técnica SEO</h2>
+            <div class="price">Análise Completa</div>
+            <ul class="features">
+              <li>Diagnóstico de Core Web Vitals</li>
+              <li>Relatório de erros de indexação</li>
+              <li>Análise de estrutura de tags e links</li>
+              <li>Plano de ação prioritário</li>
+            </ul>
+          </div>
+          <a
+            href="https://wa.me/244923968326?text=Quero%20contratar%20a%20Auditoria%20T%C3%A9cnica%20SEO"
+            class="btn-buy"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Solicitar Auditoria</a
+          >
+        </div>
+
+        <div class="plan-card">
+          <div>
+            <h2>Otimização de Performance</h2>
+            <div class="price">Ajustes Práticos</div>
+            <ul class="features">
+              <li>Otimização e compressão de mídias</li>
+              <li>Minificação de JS e CSS</li>
+              <li>Correção de nota no Google PageSpeed</li>
+              <li>Configuração de cache e entrega rápida</li>
+            </ul>
+          </div>
+          <a
+            href="https://wa.me/244923968326?text=Quero%20contratar%20a%20Otimiza%C3%A7%C3%A3o%20de%20Performance"
+            class="btn-buy"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Contratar Plano</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

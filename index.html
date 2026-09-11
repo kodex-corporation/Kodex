@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kodex Corporation — Criação de Sites e Design UI/UX</title>
+    <meta
+      name="description"
+      content="Kodex Corporation projeta e constrói sites, produtos digitais e interfaces com base em desenvolvimento semântico, UI/UX, SEO técnico e performance real."
+    />
+    <link
+      rel="shortcut icon"
+      href="../pictures/c602c0cd-d0bb-4e43-98e6-54ee6fbb82fe.jpeg"
+      type="image/x-icon"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --ink: #10233d;
+        --ink-2: #1b3a5c;
+        --paper: #edefea;
+        --paper-2: #ffffff;
+        --accent: #e7a03b;
+        --accent-dark: #b87a1f;
+        --line: rgba(16, 35, 61, 0.16);
+        --line-strong: rgba(16, 35, 61, 0.3);
+        --text: #14202e;
+        --text-muted: #4c5a6b;
+        --on-ink: #e7ecf1;
+        --on-ink-muted: #9fb0c2;
+
+        --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+        --font-body: "Inter", "Segoe UI", sans-serif;
+
+        --step-1: clamp(1.6rem, 1.2rem + 1.8vw, 2.75rem);
+        --step-2: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+        --step-3: clamp(1.05rem, 0.98rem + 0.35vw, 1.2rem);
+
+        --radius: 8px;
+        --container: 1180px;
+
+        --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        color: var(--text);
+        background: var(--paper);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-display);
+        color: var(--ink);
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+        color: var(--text-muted);
+        max-width: 62ch;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img,
+      svg {
+        max-width: 100%;
+        display: block;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .container {
+        width: 100%;
+        max-width: var(--container);
+        margin-inline: auto;
+        padding-inline: 1.25rem;
+      }
+
+      .eyebrow-label {
+        font-family: var(--font-display);
+        font-size: 0.8rem;
+        color: var(--accent-dark);
+        letter-spacing: 0.02em;
+      }
+
+      .fade-in-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity var(--transition-normal),
+          transform var(--transition-normal);
+        will-change: opacity, transform;
+      }
+
+      .fade-in-up.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .delay-1 {
+        transition-delay: 0.1s;
+      }
+      .delay-2 {
+        transition-delay: 0.2s;
+      }
+      .delay-3 {
+        transition-delay: 0.3s;
+      }
+      .delay-4 {
+        transition-delay: 0.4s;
+      }
+      .delay-5 {
+        transition-delay: 0.5s;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: rgba(237, 239, 234, 0.92);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid var(--line);
+        transition: background var(--transition-fast);
+      }
+      .site-header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 1rem;
+      }
+      .logo {
+        display: flex;
+        align-items: baseline;
+        gap: 0.4rem;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--ink);
+        transition: transform var(--transition-fast);
+      }
+      .logo:hover {
+        transform: scale(1.02);
+      }
+      .logo span {
+        color: var(--accent-dark);
+      }
+
+      .primary-nav {
+        display: none;
+      }
+      .primary-nav ul {
+        display: flex;
+        gap: 1.75rem;
+      }
+      .primary-nav a {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        padding-block: 0.25rem;
+        position: relative;
+        transition: color var(--transition-fast);
+      }
+      .primary-nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-dark);
+        transition: width var(--transition-fast);
+      }
+      .primary-nav a:hover {
+        color: var(--ink);
+      }
+      .primary-nav a:hover::after {
+        width: 100%;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        background: none;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        padding: 0.5rem 0.6rem;
+        cursor: pointer;
+        transition: background-color var(--transition-fast);
+      }
+      .nav-toggle:hover {
+        background: rgba(16, 35, 61, 0.05);
+      }
+
+      @media (min-width: 880px) {
+        .primary-nav {
+          display: block;
+        }
+        .nav-toggle {
+          display: none;
+        }
+      }
+
+      .mobile-nav {
+        display: none;
+        border-top: 1px solid var(--line);
+        background: var(--paper-2);
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height var(--transition-normal);
+      }
+      .mobile-nav.is-open {
+        display: block;
+        max-height: 200px;
+      }
+      .mobile-nav ul {
+        padding: 0.75rem 1.25rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background-color: var(--ink);
+      }
+      .hero .container {
+        padding-block: 4rem 4.5rem;
+        display: grid;
+        gap: 2.5rem;
+      }
+      .hero-eyebrow {
+        font-family: var(--font-display);
+        color: var(--accent);
+        font-size: 0.85rem;
+      }
+      .hero h1 {
+        color: var(--on-ink);
+        font-size: var(--step-1);
+        font-weight: 700;
+        max-width: 16ch;
+      }
+      .hero p.lead {
+        color: var(--on-ink-muted);
+        font-size: var(--step-3);
+        margin-top: 1.1rem;
+        max-width: 52ch;
+      }
+
+      .hero-slider-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+      .slider-track {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+      }
+      .slider-track::-webkit-scrollbar {
+        display: none;
+      }
+      .slider-track {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .slide-card {
+        flex: 0 0 82%;
+        scroll-snap-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        transition: transform var(--transition-normal);
+      }
+      .slide-card-img {
+        width: 100%;
+        height: 210px;
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--ink-2);
+        position: relative;
+      }
+      .slide-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .slide-card:hover .slide-card-img img {
+        transform: scale(1.06);
+      }
+      .slide-card span {
+        color: var(--on-ink);
+        font-family: var(--font-display);
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .slider-controls {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .slider-btn {
+        background: rgba(231, 236, 241, 0.1);
+        color: var(--on-ink);
+        border: 1px solid rgba(231, 236, 241, 0.25);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          background-color var(--transition-fast),
+          transform var(--transition-fast);
+      }
+      .slider-btn:hover {
+        background: var(--accent-dark);
+        transform: scale(1.08);
+      }
+      .slider-btn:active {
+        transform: scale(0.95);
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+        border-top: 1px solid rgba(231, 236, 241, 0.18);
+        padding-top: 1.5rem;
+      }
+      .hero-stats strong {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        color: var(--on-ink);
+      }
+      .hero-stats span {
+        font-size: 0.8rem;
+        color: var(--on-ink-muted);
+      }
+
+      @media (min-width: 960px) {
+        .hero .container {
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+        }
+        .slide-card {
+          flex: 0 0 75%;
+        }
+      }
+
+      section {
+        padding-block: 4.5rem;
+      }
+      .section-head {
+        max-width: 46ch;
+        margin-bottom: 2.75rem;
+      }
+      .section-head h2 {
+        font-size: var(--step-2);
+        margin-top: 0.5rem;
+      }
+
+      #servicos {
+        background: var(--paper-2);
+        border-block: 1px solid var(--line);
+      }
+      .services-grid {
+        display: grid;
+        gap: 1.25rem;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 700px) {
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1080px) {
+        .services-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .service-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 1.75rem 1.5rem;
+        background: var(--paper);
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+        transition:
+          transform var(--transition-normal),
+          box-shadow var(--transition-normal),
+          border-color var(--transition-normal);
+      }
+      .service-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(16, 35, 61, 0.08);
+        border-color: var(--accent-dark);
+      }
+      .service-card .icon {
+        width: 36px;
+        height: 36px;
+        color: var(--accent-dark);
+        transition: transform var(--transition-fast);
+      }
+      .service-card:hover .icon {
+        transform: scale(1.1);
+      }
+      .service-card h3 {
+        font-size: 1.05rem;
+      }
+      .service-card p {
+        font-size: 0.9rem;
+      }
+      .service-link {
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-family: var(--font-display);
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--accent-dark);
+        transition: gap var(--transition-fast);
+      }
+      .service-card:hover .service-link {
+        gap: 0.6rem;
+      }
+
+      #diferenciais {
+        background: var(--ink);
+      }
+      #diferenciais .section-head h2,
+      #diferenciais .eyebrow-label {
+        color: var(--on-ink);
+      }
+      #diferenciais .section-head p {
+        color: var(--on-ink-muted);
+      }
+      .diff-grid {
+        display: grid;
+        gap: 1.75rem;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 700px) {
+        .diff-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .diff-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        border-top: 1px solid rgba(231, 236, 241, 0.15);
+        padding-top: 1.5rem;
+        transition: transform var(--transition-fast);
+      }
+      .diff-item:hover {
+        transform: translateX(4px);
+      }
+      .diff-item .icon {
+        width: 28px;
+        height: 28px;
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+      .diff-item h3 {
+        color: var(--on-ink);
+        font-size: 1.05rem;
+        margin-bottom: 0.35rem;
+      }
+      .diff-item p {
+        color: var(--on-ink-muted);
+        font-size: 0.9rem;
+      }
+
+      .team-grid {
+        display: grid;
+        gap: 1.25rem;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 600px) {
+        .team-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1000px) {
+        .team-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .team-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper-2);
+        padding: 1.5rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        transition:
+          transform var(--transition-normal),
+          box-shadow var(--transition-normal);
+      }
+      .team-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(16, 35, 61, 0.06);
+      }
+      .avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: var(--on-ink);
+        font-family: var(--font-display);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background-color var(--transition-fast),
+          transform var(--transition-fast);
+      }
+      .team-card:hover .avatar {
+        background-color: var(--accent-dark);
+        transform: scale(1.05);
+      }
+      .team-card h3 {
+        font-size: 1rem;
+      }
+      .team-card .role {
+        font-size: 0.82rem;
+        color: var(--accent-dark);
+        font-weight: 600;
+      }
+      .team-card p.desc {
+        font-size: 0.88rem;
+      }
+      .whatsapp-link {
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--ink);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        padding: 0.5rem 0.75rem;
+        transition:
+          background-color var(--transition-fast),
+          color var(--transition-fast),
+          border-color var(--transition-fast);
+      }
+      .whatsapp-link:hover {
+        background-color: #25d366;
+        color: #ffffff;
+        border-color: #25d366;
+      }
+      .whatsapp-link svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      .site-footer {
+        background: var(--ink);
+        color: var(--on-ink-muted);
+      }
+      .footer-grid {
+        display: grid;
+        gap: 2.5rem;
+        padding-block: 3.5rem;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 760px) {
+        .footer-grid {
+          grid-template-columns: 1.3fr 1fr 1fr;
+        }
+      }
+      .footer-brand .logo {
+        color: var(--on-ink);
+      }
+      .footer-brand p {
+        color: var(--on-ink-muted);
+        margin-top: 0.9rem;
+        font-size: 0.9rem;
+      }
+      .footer-heading {
+        font-family: var(--font-display);
+        color: var(--on-ink);
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+      }
+      .footer-col ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .footer-col a {
+        font-size: 0.9rem;
+        transition: color var(--transition-fast);
+      }
+      .footer-col a:hover {
+        color: var(--accent);
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(231, 236, 241, 0.15);
+        padding-block: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.82rem;
+      }
+      @media (min-width: 760px) {
+        .footer-bottom {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="#inicio" class="logo"> Kodex<span>Corporation</span> </a>
+
+        <nav class="primary-nav">
+          <ul>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#diferenciais">Diferenciais</a></li>
+            <li><a href="#atendimento">Atendimento</a></li>
+          </ul>
+        </nav>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mobile-nav" id="mobileNav">
+        <ul>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#atendimento">Atendimento</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="inicio" class="hero">
+        <div class="container">
+          <div class="fade-in-up">
+            <p class="hero-eyebrow">Desenvolvimento web &amp; UI/UX design</p>
+            <h1>
+              Sites e produtos digitais desenhados como um projeto de
+              arquitetura
+            </h1>
+            <p class="lead">
+              Planejamos a estrutura, desenhamos a experiência e construímos com
+              código semântico — para que seu site carregue rápido, seja
+              encontrado no Google e funcione bem em qualquer tela.
+            </p>
+
+            <div class="hero-stats">
+              <div>
+                <strong>+120</strong>
+                <span>projetos entregues</span>
+              </div>
+              <div>
+                <strong>95+</strong>
+                <span>pontuação média Core Web Vitals</span>
+              </div>
+              <div>
+                <strong>6</strong>
+                <span>especialistas dedicados</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-slider-container fade-in-up delay-2">
+            <div class="slider-controls">
+              <button class="slider-btn" id="slideLeft" aria-label="Anterior">
+                &larr;
+              </button>
+              <button class="slider-btn" id="slideRight" aria-label="Próximo">
+                &rarr;
+              </button>
+            </div>
+
+            <div class="slider-track" id="sliderTrack">
+              <div class="slide-card">
+                <div class="slide-card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                    alt="Dashboard SaaS Analytics"
+                  />
+                </div>
+                <span>Análise &amp; Performance</span>
+              </div>
+
+              <div class="slide-card">
+                <div class="slide-card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1658863025658-4a259cc68fc9?q=80&w=725&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="E-commerce Headless Web Platform"
+                  />
+                </div>
+                <span>Design de Interface</span>
+              </div>
+
+              <div class="slide-card">
+                <div class="slide-card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80"
+                    alt="Portal Corporativo e Institutional Design"
+                  />
+                </div>
+                <span>Portal Corporativo Institucional</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="servicos">
+        <div class="container">
+          <div class="section-head fade-in-up">
+            <p class="eyebrow-label">O que fazemos</p>
+            <h2>Serviços</h2>
+          </div>
+
+          <div class="services-grid">
+            <article class="service-card fade-in-up delay-1">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              <h3>Desenvolvimento web semântico</h3>
+              <p>
+                Código HTML5 limpo, acessível e estruturado com as tags corretas
+                — a base para um site rápido e bem indexado.
+              </p>
+              <a href="desenvolvimento.html" class="service-link"
+                >Ver planos e contratar &rarr;</a
+              >
+            </article>
+
+            <article class="service-card fade-in-up delay-2">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="M2 2l7.586 7.586"></path>
+                <circle cx="11" cy="11" r="2"></circle>
+              </svg>
+              <h3>Designs Gráficos</h3>
+              <p>
+                Criação de identidade visual, layouts e elementos gráficos para
+                fortalecer a presença da marca.
+              </p>
+              <a href="design-grafico.html" class="service-link"
+                >Ver planos e contratar &rarr;</a
+              >
+            </article>
+
+            <article class="service-card fade-in-up delay-3">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <h3>Otimização SEO &amp; performance</h3>
+              <p>
+                Ajustes técnicos de velocidade, indexação e estrutura de dados
+                para melhorar posição nas buscas.
+              </p>
+              <a href="seo-performance.html" class="service-link"
+                >Ver planos e contratar &rarr;</a
+              >
+            </article>
+
+            <article class="service-card fade-in-up delay-4">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+                ></path>
+              </svg>
+              <h3>Manutenção</h3>
+              <p>
+                Monitoramento, atualizações e pequenas correções contínuas para
+                manter o site estável.
+              </p>
+              <a href="manutencao.html" class="service-link"
+                >Ver planos e contratar &rarr;</a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="diferenciais">
+        <div class="container">
+          <div class="section-head fade-in-up">
+            <p class="eyebrow-label">Por que nos escolher</p>
+            <h2>Diferenciais</h2>
+            <p>
+              Cada decisão de projeto é avaliada por quatro critérios: rapidez,
+              visibilidade nas buscas, acessibilidade e continuidade depois da
+              entrega.
+            </p>
+          </div>
+
+          <div class="diff-grid">
+            <div class="diff-item fade-in-up delay-1">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+                <polygon
+                  points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                ></polygon>
+              </svg>
+              <div>
+                <h3>Velocidade real</h3>
+                <p>
+                  Código enxuto e imagens otimizadas resultam em carregamento
+                  rápido, mesmo em conexões mais lentas.
+                </p>
+              </div>
+            </div>
+
+            <div class="diff-item fade-in-up delay-2">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <div>
+                <h3>SEO desde a estrutura</h3>
+                <p>
+                  Hierarquia de títulos, dados estruturados e marcação semântica
+                  pensados desde a primeira linha de código.
+                </p>
+              </div>
+            </div>
+
+            <div class="diff-item fade-in-up delay-3">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <div>
+                <h3>Acessibilidade</h3>
+                <p>
+                  Contraste adequado, navegação por teclado e leitura por
+                  tecnologias assistivas fazem parte do projeto.
+                </p>
+              </div>
+            </div>
+
+            <div class="diff-item fade-in-up delay-4">
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                ></path>
+              </svg>
+              <div>
+                <h3>Suporte contínuo</h3>
+                <p>
+                  Depois do lançamento, o site continua acompanhado por alguém
+                  que conhece o projeto desde o início.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="atendimento">
+        <div class="container">
+          <div class="section-head fade-in-up">
+            <p class="eyebrow-label">Fale com a nossa equipe</p>
+            <h2>Atendimento</h2>
+            <p>
+              Cada área tem um canal direto no WhatsApp para você falar com quem
+              vai acompanhar a sua demanda.
+            </p>
+          </div>
+
+          <div class="team-grid">
+            <article class="team-card fade-in-up delay-1">
+              <span class="avatar">AC</span>
+              <h3>Aldécio da Cunha</h3>
+              <p class="role">Atendimento geral &amp; vendas</p>
+              <p class="desc">
+                Primeiro contato, dúvidas gerais e apresentação de serviços.
+              </p>
+              <a
+                class="whatsapp-link"
+                href="https://wa.me/244943066383?text=Ol%C3%A1%20Ald%C3%A9cio%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.1-3.5-8.3zM12 21.3h-.1a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2 6.4 6.5 2 12 2c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9z"
+                  />
+                </svg>
+                Chamar no WhatsApp
+              </a>
+            </article>
+
+            <article class="team-card fade-in-up delay-2">
+              <span class="avatar">AG</span>
+              <h3>Altânio Guedes</h3>
+              <p class="role">Suporte técnico</p>
+              <p class="desc">
+                Problemas no site em produção, erros e ajustes urgentes.
+              </p>
+              <a
+                class="whatsapp-link"
+                href="https://wa.me/244923968326?text=Ol%C3%A1%20Alt%C3%A2nio%2C%20preciso%20de%20suporte%20t%C3%A9cnico."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.1-3.5-8.3zM12 21.3h-.1a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2 6.4 6.5 2 12 2c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9z"
+                  />
+                </svg>
+                Chamar no WhatsApp
+              </a>
+            </article>
+
+            <article class="team-card fade-in-up delay-3">
+              <span class="avatar">SM</span>
+              <h3>Sílvio Mendes</h3>
+              <p class="role">Orçamentos &amp; projetos</p>
+              <p class="desc">
+                Escopo, prazos e valores para um novo site ou sistema.
+              </p>
+              <a
+                class="whatsapp-link"
+                href="https://wa.me/244932492276?text=Ol%C3%A1%20S%C3%ADlvio%2C%20quero%20solicitar%20um%20or%C3%A7amento."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.1-3.5-8.3zM12 21.3h-.1a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2 6.4 6.5 2 12 2c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9z"
+                  />
+                </svg>
+                Chamar no WhatsApp
+              </a>
+            </article>
+
+            <article class="team-card fade-in-up delay-1">
+              <span class="avatar">KN</span>
+              <h3>Kelson Nguinamau</h3>
+              <p class="role">SEO &amp; Performance</p>
+              <p class="desc">
+                Otimização de sites para melhor posicionamento nos motores de
+                busca e desempenho geral.
+              </p>
+              <a
+                class="whatsapp-link"
+                href="https://wa.me/244933482451?text=Ol%C3%A1%20Kelson%2C%20gostaria%20de%20falar%20sobre%20Otimização%2FPerformance."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.1-3.5-8.3zM12 21.3h-.1a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2 6.4 6.5 2 12 2c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9z"
+                  />
+                </svg>
+                Chamar no WhatsApp
+              </a>
+            </article>
+
+            <article class="team-card fade-in-up delay-2">
+              <span class="avatar">EV</span>
+              <h3>Emanuel Vimboto</h3>
+              <p class="role">Desenvolvimento Front-end</p>
+              <p class="desc">
+                Construção de componentes web, animações e responsividade.
+              </p>
+              <a
+                class="whatsapp-link"
+                href="https://wa.me/244957192947?text=Ol%C3%A1%20Emanuel%2C%20preciso%20de%20ajuda%20com%20Desenvolvimento."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.1-3.5-8.3zM12 21.3h-.1a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2 6.4 6.5 2 12 2c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9z"
+                  />
+                </svg>
+                Chamar no WhatsApp
+              </a>
+            </article>
+
+            <article class="team-card fade-in-up delay-3">
+              <span class="avatar">HG</span>
+              <h3>Hendrik Godinho</h3>
+              <p class="role">Design</p>
+              <p class="desc">
+                Criação de identidade visual, layouts e elementos gráficos para
+                fortalecer a presença da marca.
+              </p>
+              <a
+                class="whatsapp-link"
+                href="https://wa.me/244936877534?text=Ol%C3%A1%20Hendrick%2C%20quero%20melhorar%20a%20performance%20do%20meu%20site."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.1-3.5-8.3zM12 21.3h-.1a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2 6.4 6.5 2 12 2c2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9z"
+                  />
+                </svg>
+                Chamar no WhatsApp
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a
+            href="https://www.instagram.com/kodexcorporation?stkn=MXZmNmIzcnJuMGJoZQ=="
+            class="logo"
+            target="_blank"
+            >Instagram Kodex<span style="color: var(--accent)"
+              >Corporation</span
+            ></a
+          >
+          <p>
+            Agência de desenvolvimento web e design de interfaces, com foco em
+            sites rápidos, acessíveis e bem estruturados para SEO.
+          </p>
+        </div>
+
+        <nav class="footer-col">
+          <p class="footer-heading">Mapa do site</p>
+          <ul>
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#diferenciais">Diferenciais</a></li>
+            <li><a href="#atendimento">Atendimento</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col">
+          <p class="footer-heading">Informações legais</p>
+          <ul>
+            <li><a href="#">Política de privacidade</a></li>
+            <li><a href="#">Termos de uso</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>&copy; 2026 Kodex Corporation. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script>
+      const navToggle = document.getElementById("navToggle");
+      const mobileNav = document.getElementById("mobileNav");
+      navToggle.addEventListener("click", () => {
+        mobileNav.classList.toggle("is-open");
+      });
+
+      const track = document.getElementById("sliderTrack");
+      const btnLeft = document.getElementById("slideLeft");
+      const btnRight = document.getElementById("slideRight");
+
+      btnLeft.addEventListener("click", () => {
+        track.scrollBy({ left: -260, behavior: "smooth" });
+      });
+
+      btnRight.addEventListener("click", () => {
+        track.scrollBy({ left: 260, behavior: "smooth" });
+      });
+
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.15,
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target); // Anima apenas uma vez
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".fade-in-up").forEach((element) => {
+        observer.observe(element);
+      });
+    </script>
+  </body>
+</html>
